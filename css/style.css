@@ -1,0 +1,52 @@
+body{
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form{
+    width: 30%;
+    padding: 20px 20px;
+    background-color: #ecebeb;
+    border-radius: 2px;
+    box-shadow: #ecebeb;
+}
+.form-label{
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+}
+.form-group{
+    padding: 12px 12px;
+}
+.form-group-radio{
+    display: flex;
+}
+.form-control{
+    width: 90%;
+    padding: 5px 5px;
+    margin: 5px 5px;
+}
+.form-control_radio{
+    margin-top: 7px;
+}
+.form-group_label{
+    min-width: 75px;
+    margin:5px 5px;
+}
+.form-submit{
+    display: flex;
+    justify-content: center;
+}
+.btn-submit{
+    color: #fff;
+    background-color: dodgerblue;
+    padding: 10px 20px;
+    border-radius: 4px;
+}

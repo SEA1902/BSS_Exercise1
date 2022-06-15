@@ -1,0 +1,6 @@
+{
+    "name": "bss/workspace",
+    "require": {
+        "symfony/var-dumper": "^5.4"
+    }
+}
