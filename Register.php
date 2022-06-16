@@ -16,15 +16,16 @@ $result = $personController->getAllPerson();
 
 ?>
 <?php
-foreach($result as $person){
-    echo $person->getName();
-}
+//foreach($result as $person){
+//    echo $person->getName();
+//}
+
 ?>
 
 <?php if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['dangky'])): ?>
     <?php
         $personController->add();
-        header('Location: Register.php');exit;
+        header('Location: Login.php');exit;
     ?>
 
 <?php else: ?>

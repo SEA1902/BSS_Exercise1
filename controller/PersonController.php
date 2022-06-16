@@ -25,7 +25,8 @@ class PersonController
         if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $this->personDb->checkPerson($email, $password);
+            $stmt = $this->personDb->checkPerson($email, $password);
+            return $stmt;
         }
     }
     public function add(){

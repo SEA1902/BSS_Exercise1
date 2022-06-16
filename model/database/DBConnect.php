@@ -14,8 +14,8 @@ class DBConnect
     public function __construct()
     {
         $this->dns = 'mysql:host=localhost;dbname=BSS_Exercise1';
-        $this->username = 'bss_exercise1';
-        $this->password = 'password';
+        $this->username = 'root';
+        $this->password = '';
     }
 
     public function connect()

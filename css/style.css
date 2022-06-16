@@ -7,15 +7,16 @@ body{
 .container{
     width: 100%;
     display: flex;
+    background-color: #f5f5f5;
     justify-content: center;
     align-items: center;
 }
 .form{
     width: 30%;
     padding: 20px 20px;
-    background-color: #ecebeb;
+    background-color: #ffffff;
     border-radius: 2px;
-    box-shadow: #ecebeb;
+    box-shadow: 1px 2px #d3d2d2;
 }
 .form-label{
     text-align: center;
@@ -29,9 +30,17 @@ body{
     display: flex;
 }
 .form-control{
+    background-color: #f5f5f5;
     width: 90%;
-    padding: 5px 5px;
+    padding: 10px 10px;
     margin: 5px 5px;
+    outline: none;
+    border: 1px solid #f5f5f5;
+    border-radius: 2px;
+    box-shadow: 1px 1px #b7b7b7;
+}
+.form-submit{
+    text-align: center;
 }
 .form-control_radio{
     margin-top: 7px;
@@ -40,13 +49,174 @@ body{
     min-width: 75px;
     margin:5px 5px;
 }
-.form-submit{
-    display: flex;
-    justify-content: center;
-}
 .btn-submit{
+    border: 0.5px ;
     color: #fff;
     background-color: dodgerblue;
     padding: 10px 20px;
     border-radius: 4px;
+    outline: none;
+}
+
+/*   */
+
+.home-layout{
+    width: 100vw;
+    display: flex;
+}
+
+.sidebar{
+    background-color: #ffffff;
+    width: 250px;
+    min-height: 1000px;
+    box-shadow:2px 2px #a4a4a4;
+}
+
+.icon-device{
+    display: inline-block;
+    width: 12%;
+    height: 50%;
+    padding: 12px 5px 0px 0px;
+}
+
+.sidebar-group{
+    padding: 5px 5px;
+    display: flex;
+    justify-content: center;
+}
+.sidebar-group label{
+    padding: 10px 0px 15px 0px;
+    font-weight: 600;
+    font-size: 18px;
+}
+.sidebar-group i{
+    width: 25px;
+    margin-top: 6px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.sidebar-group a{
+    flex: 1;
+    text-decoration: none;
+    color: black;
+    text-align: left;
+    cursor: pointer;
+    padding: 5px 5px;
+}
+.sidebar-group a:hover{
+    color: deepskyblue;
+}
+.sidebar-group .active{
+    color: deepskyblue;
+}
+.home-container{
+    width: 100%;
+}
+.header{
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+    display: block;
+    justify-content: center;
+}
+.content{
+    width: 100%;
+    min-height: 950px;
+    background-color: #f5f5f5;
+    display: inline-block;
+}
+.content-wrapper{
+    margin: 50px 90px;
+}
+.header-group{
+    display: block;
+    text-align: right;
+    padding: 12px;
+}
+.header-identity{
+    padding: 5px;
+}
+
+.content-table{
+    width: 100%;
+}
+/*  table  */
+
+table {
+    width: 100%;
+    border: 2px solid #ffffff;
+    border-collapse: collapse;
+    margin: 50px auto;
+    padding: 0;
+}
+
+
+table tr {
+    background-color: #ffffff;
+    border: 0.5px solid #ddd;
+    padding: .5em;
+}
+
+table th,
+table td {
+    padding: .625em 1.25em;
+    text-align: center;
+}
+
+table th {
+    font-weight: 500;
+    font-size: .85em;
+    letter-spacing: .1em;
+    border-bottom: 1px;
+}
+
+table .power{
+    text-align: right;
+}
+table .total-label{
+    font-weight: 600;
+}
+table .total-power{
+    font-weight: 600;
+    text-align: right;
+}
+.wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+.add-device{
+    text-align: center;
+    width: 300px;
+    padding: 20px 20px;
+    background-color: #fff;
+    border-radius: 2px ;
+    box-shadow: 2px 2px #f5f5f5 ;
+}
+.add-device input{
+    background-color: #f5f5f5;
+    width: 90%;
+    outline: none;
+    display: block;
+    border: 0.5px solid #f5f5f5;
+    border-radius: 1px;
+    box-shadow: 1px 1px #a4a4a4;
+    margin: 15px 15px;
+    padding: 10px 10px;
+}
+.add-device button{
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: deepskyblue;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 1px #d3d2d2;
+}
+
+
+/* CHART-SKILLS STYLES
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+#chartContainer{
+    height: 315px;
+    width: 400px;
 }

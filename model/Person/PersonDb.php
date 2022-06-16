@@ -16,10 +16,7 @@ class PersonDb
         $sql = "SELECT * FROM person WHERE email='".$email."' AND password='".$password."'";
         $stmt = $this->connect->prepare($sql);
         $stmt->execute();
-        $count = $stmt->rowCount();
-        if($count>0){
-            return true;
-        }else return false;
+        return $stmt;
     }
 
     public function addPerson($person)

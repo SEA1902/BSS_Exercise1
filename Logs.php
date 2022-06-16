@@ -24,7 +24,6 @@ if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 <?php
 $datachart = [];
-
 foreach ($devices as $device){
     $data = ["label"=>$device["device"],"y"=>$device["power_consumption"]];
     array_push($datachart, $data);
@@ -41,25 +40,7 @@ foreach ($devices as $device){
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Document</title>
-    <script>
-        window.onload = function() {
-            var chart = new CanvasJS.Chart("chartContainer", {
-                theme: "light1",
-                   animationEnabled: true,
-                data: [
-                    {
-                        type: "doughnut",
-                        showInLegend: true,
-                        legendText: "{label}",
-                        dataPoints: <?php echo json_encode($datachart); ?>
-                    }
-                ]
-            });
-
-            chart.render();
-
-        }
-    </script>
+   </script>
 </head>
 <body>
 <div class = "home-layout">
@@ -70,11 +51,11 @@ foreach ($devices as $device){
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-laptop-medical"></i>
-            <a href="#" class="active">Dashboard</a>
+            <a href="./index.php">Dashboard</a>
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-clock-rotate-left"></i>
-            <a href="./Logs.php">Logs</a>
+            <a href="./Logs.php" class="active">Logs</a>
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-gear"></i>
@@ -82,79 +63,78 @@ foreach ($devices as $device){
         </div>
     </aside>
     <div class="home-container">
+
         <header class="header">
             <div class="header-group">
                 <i class="fa-solid fa-user"></i>
                 <span class='header-identity'>
                     <?php
-                        echo $user[0]["email"];
+                    echo $user[0]["email"];
                     ?>
                 </span>
             </div>
-
         </header>
+
+
         <content class="content">
             <div class="content-wrapper">
-            <div class="content-table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th scope="col">Device</th>
-                        <th scope="col">MAC Address</th>
-                        <th scope="col">IP</th>
-                        <th scope="col">Created Date</th>
-                        <th scope="col">Power Consumption (Kw/H)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                     foreach ($devices as $device){
-                         echo "<tr>";
-                        echo "<td data-label='Device'>".$device['device']."</td>";
-                        echo "<td data-label='MAC Address'>".$device['mac']."</td>";
-                        echo "<td data-label='IP'>".$device['ip']."</td>";
-                        echo "<td data-label='Created Date'>".$device['date']."</td>";
-                        echo "<td data-label='Power Consumption (Kw/H)' class='power'>".$device['power_consumption']."</td>";
-                        echo "</tr>";
-                     }
-                    ?>
-                    <tr>
-                        <td data-label="Device" class="total-label">Total</td>
-                        <td data-label="MAC Address"></td>
-                        <td data-label="IP"></td>
-                        <td data-label="Created Date"></td>
-                        <td data-label="Power Consumption (Kw/H)" class="total-power">
-                            <?php
-                            global $total;
-                            foreach ($devices as $device){
-                                $total += $device["power_consumption"];
-                            }
-                            echo $total;
-                            ?>
-                        </td>
-                    </tr>
+                <div class="content-table">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th scope="col">Device</th>
+                            <th scope="col">MAC Address</th>
+                            <th scope="col">IP</th>
+                            <th scope="col">Created Date</th>
+                            <th scope="col">Power Consumption (Kw/H)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        foreach ($devices as $device){
+                            echo "<tr>";
+                            echo "<td data-label='Device'>".$device['device']."</td>";
+                            echo "<td data-label='MAC Address'>".$device['mac']."</td>";
+                            echo "<td data-label='IP'>".$device['ip']."</td>";
+                            echo "<td data-label='Created Date'>".$device['date']."</td>";
+                            echo "<td data-label='Power Consumption (Kw/H)' class='power'>".$device['power_consumption']."</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                        <tr>
+                            <td data-label="Device" class="total-label">Total</td>
+                            <td data-label="MAC Address"></td>
+                            <td data-label="IP"></td>
+                            <td data-label="Created Date"></td>
+                            <td data-label="Power Consumption (Kw/H)" class="total-power">
+                                <?php
+                                global $total;
+                                foreach ($devices as $device){
+                                    $total += $device["power_consumption"];
+                                }
+                                echo $total;
+                                ?>
+                            </td>
+                        </tr>
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="wrapper">
-                <div class="chart">
-                    <div id="chartContainer" ></div>
+                        </tbody>
+                    </table>
                 </div>
-                <form method="POST" class="add-device">
-                    <input type="text" name="device" placeholder="name">
-                    <input type="text" name="ip" placeholder="IP">
-                    <input type="text" name="mac" placeholder="MAC">
-                    <input type="text" name="power_consumption" placeholder="Power Consumption (Kw/H)">
-                    <button type="submit">Add Device</button>
-                </form>
-            </div>
+                <div class="wrapper">
+
+                    <form method="POST" class="add-device">
+                        <input type="text" name="device" placeholder="name">
+                        <input type="text" name="ip" placeholder="IP">
+                        <input type="text" name="mac" placeholder="MAC">
+                        <input type="text" name="power_consumption" placeholder="Power Consumption (Kw/H)">
+                        <button type="submit">Add Device</button>
+                    </form>
+                </div>
             </div>
         </content>
     </div>
 
 </div>
 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
 </html>

@@ -16,9 +16,16 @@ $personController = new PersonController();
 <?php if($_SERVER['REQUEST_METHOD'] === "POST" ): ?>
     <?php
     session_start();
-    $check = $personController->check();
-    echo $check;
-    header('Location: index.php');exit;
+    $stmt = $personController->check();
+    $count = $stmt->rowCount();
+
+    if($count > 0){
+        $_SESSION['user'] = $stmt->fetchAll();
+        var_dump($_SESSION['user']);
+        header('Location: index.php');exit;
+    }else{
+        echo "Tên đăng nhập hoặc mật khẩu chưa chính xác";
+    }
     ?>
 
 <?php else: ?>
