@@ -41,9 +41,12 @@ body{
     box-shadow: 1px 1px #b7b7b7;
 }
 .error{
-    padding-left: 10px;
+    padding-left: 15px;
+    padding-bottom: 5px;
     color: red;
+    text-align: left;
 }
+
 .form-submit{
     display: flex;
     justify-content: space-around;
@@ -233,7 +236,7 @@ table .total-power{
     width: 400px;
 }
 
-/*-----------------------Logs-----------------------------*/
+/*-----------------------Log-----------------------------*/
 /* ---------------search---------*/
 .content-search{
     display: flex;

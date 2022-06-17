@@ -44,7 +44,7 @@ final class RequestContextProvider implements ContextProviderInterface
         return [
             'uri' => $request->getUri(),
             'method' => $request->getMethod(),
-            'controller' => $controller ? $this->cloner->cloneVar($controller) : $controller,
+            'Controller' => $controller ? $this->cloner->cloneVar($controller) : $controller,
             'identifier' => spl_object_hash($request),
         ];
     }

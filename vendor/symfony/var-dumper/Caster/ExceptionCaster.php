@@ -16,7 +16,7 @@ use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
 
 /**
- * Casts common Exception classes to array representation.
+ * Casts common InputException classes to array representation.
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *

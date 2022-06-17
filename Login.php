@@ -1,31 +1,31 @@
 <?php
 
 namespace view\login;
-
+session_start();
 use Controller\PersonController;
 
-//include __DIR__ . '/vendor/autoload.php';
-include('./controller/PersonController.php');
+include __DIR__ . '/vendor/autoload.php';
+include('./Controller/PersonController.php');
 include('./model/Person/PersonDb.php');
 include('./model/Person/Person.php');
 include('./model/database/DBConnect.php');
 
 $personController = new PersonController();
-$loginErr ="";
 ?>
 <?php if($_SERVER['REQUEST_METHOD'] === "POST" ): ?>
     <?php
 
-    session_start();
     $stmt = $personController->check();
     $count = $stmt->rowCount();
-
     if($count > 0){
+        session_start();
         $_SESSION['user'] = $stmt->fetchAll();
         var_dump($_SESSION['user']);
         header('Location: index.php');exit;
     }else{
-        echo "Email hoặc mật khẩu chưa chính xác";
+        $err = "Email hoặc mật khẩu không chính xác";
+        $_SESSION["err"]= $err;
+        header('Location: Login.php');exit;
     }
     ?>
 
@@ -42,6 +42,7 @@ $loginErr ="";
     <title>Document</title>
 </head>
 <body>
+
 <div class = "container">
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="form">
         <legend class="form-label">Đăng nhập</legend>
@@ -53,7 +54,14 @@ $loginErr ="";
         <div class="form-group">
             <label for="" class="form-group_label">Mật khẩu:</label></br>
             <input type="password" class="form-control" name="password">
-            <span class="error"> <?php echo $loginErr;?></span>
+            <span class="error">
+                <?php
+                if(isset($_SESSION["err"])){
+                    echo "*".$_SESSION["err"];
+                    unset($_SESSION['err']);
+                }
+                ?>
+            </span>
         </div>
 
         <div class="form-submit">

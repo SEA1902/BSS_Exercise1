@@ -1,33 +1,20 @@
 <?php
 session_start();
 $user = (isset($_SESSION['user'])) ? $_SESSION['user']: [];
-
 ?>
 <?php
 
 ini_set('display_errors', 1);
-use Controller\DeviceController;
+use Controller\LogController;
 
 include __DIR__ . '/vendor/autoload.php';
-include('./controller/DeviceController.php');
-include('./model/Device/DeviceDb.php');
-include('./model/Device/Device.php');
+include('./Controller/LogController.php');
+include('./model/Log/LogDb.php');
+include('./model/Log/Log.php');
 include('./model/database/DBConnect.php');
 
-$deviceController = new DeviceController();
-$devices = $deviceController->getAllDevice();
-
-if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER["REQUEST_METHOD"] == "POST"){
-    $deviceController->add();
-    header("Location: index.php");exit;
-}
-?>
-<?php
-$datachart = [];
-foreach ($devices as $device){
-    $data = ["label"=>$device["name_device"],"y"=>$device["power_consumption"]];
-    array_push($datachart, $data);
-}
+$logController = new LogController();
+$logs = $logController->getAllLog();
 ?>
 
 <!doctype html>
@@ -56,7 +43,7 @@ foreach ($devices as $device){
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-clock-rotate-left"></i>
-            <a href="./Logs.php" class="active">Logs</a>
+            <a href="Logs.php" class="active">Logs</a>
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-gear"></i>
@@ -100,16 +87,24 @@ foreach ($devices as $device){
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($devices as $device){
+                        foreach ($logs as $log){
                             echo "<tr>";
-                            echo "<td data-label='Device'>".$device['ip']."</td>";
-                            echo "<td data-label='MAC Address'>".$device['name_device']."</td>";
-                            echo "<td data-label='IP'>".$device['mac']."</td>";
-                            echo "<td data-label='Created Date'>".$device['create_date']."</td>";
+                            echo "<td >".$log['device_id']."</td>";
+                            echo "<td >".$log['name_device']."</td>";
+                            echo "<td >".$log['action']."</td>";
+                            echo "<td >".$log['date']."</td>";
                             echo "</tr>";
                         }
                         ?>
 
+                        <tr>
+                            <th class="total-label">Total</th>
+                            <th></th>
+                            <th></th>
+                            <th class="total-page">
+
+                            </th>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

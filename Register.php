@@ -4,9 +4,9 @@ namespace view\register;
 
 ini_set('display_errors', 1);
 use Controller\PersonController;
-
+session_start();
 include __DIR__ . '/vendor/autoload.php';
-include('./controller/PersonController.php');
+include('./Controller/PersonController.php');
 include('./model/Person/PersonDb.php');
 include('./model/Person/Person.php');
 include('./model/database/DBConnect.php');
@@ -18,8 +18,15 @@ $result = $personController->getAllPerson();
 
 <?php if($_SERVER['REQUEST_METHOD'] === "POST" ): ?>
     <?php
+try{
     $personController->add();
+    header('Location: Login.php');
+} catch(\Controller\InputException  $e){
+    $errs = $e->getData();
+    $_SESSION['err'] = $errs;
     header('Location: Register.php');
+}
+
     ?>
 
 <?php else: ?>
@@ -41,13 +48,11 @@ $result = $personController->getAllPerson();
             <div class="form-group">
                 <label for="" class="form-group_label">Tên người dùng:</label></br>
                 <input type="text" class="form-control" name="name">
-<!--                <span class="error"> --><?php //echo $nameErr ;?><!--</span>-->
             </div>
 
             <div class="form-group">
                 <label for="" class="form-group_label">Email:</label></br>
                 <input type="text" class="form-control" name="email">
-<!--                <span class="error"> --><?php //echo $emailErr ;?><!--</span>-->
 
             </div>
 
@@ -57,15 +62,22 @@ $result = $personController->getAllPerson();
                 <label for="gender" class="form-group_label">Female</label>
                 <input type="radio" class="form-control_radio" name="gender" value="1">
                 <label for="gender" class="form-group_label">Male</label>
-<!--                <span class="error"> --><?php //echo $genderErr ;?><!--</span>-->
             </div>
 
             <div class="form-group">
                 <label for="" class="form-group_label">Password:</label></br>
                 <input type="password" class="form-control" name="password">
-<!--                <span class="error"> --><?php //echo $passwordErr ;?><!--</span>-->
             </div>
-
+            <div class="error">
+                <?php
+                if(isset($_SESSION['err'])) {
+                    foreach ($_SESSION['err'] as $err) {
+                        echo "<span>*" . $err . "</span>";
+                        echo "</br>";
+                    }
+                }
+                ?>
+            </div>
             <div class="form-submit">
                 <button type="submit" class="btn-submit" name="dangky">Đăng ký</button>
                 <a href="Login.php" >Đăng nhập</a>

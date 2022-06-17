@@ -14,7 +14,7 @@ namespace Symfony\Component\VarDumper\Caster;
 use Symfony\Component\VarDumper\Cloner\Stub;
 
 /**
- * Represents a backtrace as returned by debug_backtrace() or Exception->getTrace().
+ * Represents a backtrace as returned by debug_backtrace() or InputException->getTrace().
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */

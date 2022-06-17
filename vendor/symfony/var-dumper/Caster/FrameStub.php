@@ -12,7 +12,7 @@
 namespace Symfony\Component\VarDumper\Caster;
 
 /**
- * Represents a single backtrace frame as returned by debug_backtrace() or Exception->getTrace().
+ * Represents a single backtrace frame as returned by debug_backtrace() or InputException->getTrace().
  *
  * @author Nicolas Grekas <p@tchwork.com>
  */

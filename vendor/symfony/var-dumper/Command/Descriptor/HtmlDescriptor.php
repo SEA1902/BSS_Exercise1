@@ -44,7 +44,7 @@ class HtmlDescriptor implements DumpDescriptorInterface
         $title = '-';
         if (isset($context['request'])) {
             $request = $context['request'];
-            $controller = "<span class='dumped-tag'>{$this->dumper->dump($request['controller'], true, ['maxDepth' => 0])}</span>";
+            $controller = "<span class='dumped-tag'>{$this->dumper->dump($request['Controller'], true, ['maxDepth' => 0])}</span>";
             $title = sprintf('<code>%s</code> <a href="%s">%s</a>', $request['method'], $uri = $request['uri'], $uri);
             $dedupIdentifier = $request['identifier'];
         } elseif (isset($context['cli'])) {
@@ -66,7 +66,7 @@ class HtmlDescriptor implements DumpDescriptorInterface
 
         $isoDate = $this->extractDate($context, 'c');
         $tags = array_filter([
-            'controller' => $controller ?? null,
+            'Controller' => $controller ?? null,
             'project dir' => $projectDir ?? null,
         ]);
 

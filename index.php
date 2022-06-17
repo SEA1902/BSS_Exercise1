@@ -9,17 +9,20 @@ ini_set('display_errors', 1);
 use Controller\DeviceController;
 
 include __DIR__ . '/vendor/autoload.php';
-include('./controller/DeviceController.php');
+include('./Controller/DeviceController.php');
 include('./model/Device/DeviceDb.php');
 include('./model/Device/Device.php');
 include('./model/database/DBConnect.php');
 
 $deviceController = new DeviceController();
 $devices = $deviceController->getAllDevice();
-
+//var_dump($devices);
 if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER["REQUEST_METHOD"] == "POST"){
-    $deviceController->add();
-    header("Location: index.php");exit;
+    try {
+        $deviceController->add();
+    } catch (\Controller\InputException $e) {
+        $errs = $e->getData();
+    }
 }
 ?>
 <?php
@@ -45,7 +48,11 @@ foreach ($devices as $device){
         window.onload = function() {
             var chart = new CanvasJS.Chart("chartContainer", {
                 theme: "light1",
-                   animationEnabled: true,
+                animationEnabled: true,
+                title:{
+                    text: "Power Consumption",
+                    fontSize: 10,
+                },
                 data: [
                     {
                         type: "doughnut",
@@ -74,7 +81,7 @@ foreach ($devices as $device){
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-clock-rotate-left"></i>
-            <a href="./Logs.php">Logs</a>
+            <a href="Logs.php">Logs</a>
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-gear"></i>
@@ -146,6 +153,16 @@ foreach ($devices as $device){
                     <input type="text" name="ip" placeholder="IP">
                     <input type="text" name="mac" placeholder="MAC">
                     <input type="text" name="power_consumption" placeholder="Power Consumption (Kw/H)">
+                    <div class="error">
+                    <?php
+                    if(isset($errs)){
+                        foreach ($errs as $err){
+                            echo "<span>*".$err."</span>";
+                            echo "</br>";
+                        }
+                    }
+                    ?>
+                    </div>
                     <button type="submit">Add Device</button>
                 </form>
             </div>
