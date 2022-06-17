@@ -39,8 +39,18 @@ body{
     border-radius: 2px;
     box-shadow: 1px 1px #b7b7b7;
 }
+.error{
+    padding-left: 10px;
+    color: red;
+}
 .form-submit{
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+.form-submit a{
+    text-decoration: none;
+    padding: 10px 5px;
+    color: #0194c5;
 }
 .form-control_radio{
     margin-top: 7px;
@@ -219,4 +229,29 @@ table .total-power{
 #chartContainer{
     height: 315px;
     width: 400px;
+}
+
+/*          Logs             */
+
+.content-search{
+    display: flex;
+    justify-content: space-between;
+}
+.search{
+
+}
+.search input{
+    padding: 5px 10px;
+    border: white;
+    background-color: #fcecec;
+    border-radius: 2px;
+}
+.search button{
+    margin-left: 5px;
+    border: white;
+    background-color: #0194c5;
+    color: white;
+    border-radius: 2px;
+    box-shadow: 1px 1px ;
+    padding: 5px 10px;
 }

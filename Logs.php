@@ -78,57 +78,40 @@ foreach ($devices as $device){
 
         <content class="content">
             <div class="content-wrapper">
+                <div class="content-search">
+                    <h2>Action Logs</h2>
+                    <div class="search">
+                        <input type="text" name="search" id="search" placeholder="name">
+                        <button type="submit">Search</button>
+                    </div>
+                </div>
                 <div class="content-table">
                     <table>
                         <thead>
                         <tr>
-                            <th scope="col">Device</th>
-                            <th scope="col">MAC Address</th>
-                            <th scope="col">IP</th>
-                            <th scope="col">Created Date</th>
-                            <th scope="col">Power Consumption (Kw/H)</th>
+                            <th scope="col">Device ID#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
                         foreach ($devices as $device){
                             echo "<tr>";
-                            echo "<td data-label='Device'>".$device['device']."</td>";
-                            echo "<td data-label='MAC Address'>".$device['mac']."</td>";
-                            echo "<td data-label='IP'>".$device['ip']."</td>";
+                            echo "<td data-label='Device'>".$device['ip']."</td>";
+                            echo "<td data-label='MAC Address'>".$device['device']."</td>";
+                            echo "<td data-label='IP'>".$device['mac']."</td>";
                             echo "<td data-label='Created Date'>".$device['date']."</td>";
-                            echo "<td data-label='Power Consumption (Kw/H)' class='power'>".$device['power_consumption']."</td>";
                             echo "</tr>";
                         }
                         ?>
-                        <tr>
-                            <td data-label="Device" class="total-label">Total</td>
-                            <td data-label="MAC Address"></td>
-                            <td data-label="IP"></td>
-                            <td data-label="Created Date"></td>
-                            <td data-label="Power Consumption (Kw/H)" class="total-power">
-                                <?php
-                                global $total;
-                                foreach ($devices as $device){
-                                    $total += $device["power_consumption"];
-                                }
-                                echo $total;
-                                ?>
-                            </td>
-                        </tr>
 
                         </tbody>
                     </table>
                 </div>
                 <div class="wrapper">
 
-                    <form method="POST" class="add-device">
-                        <input type="text" name="device" placeholder="name">
-                        <input type="text" name="ip" placeholder="IP">
-                        <input type="text" name="mac" placeholder="MAC">
-                        <input type="text" name="power_consumption" placeholder="Power Consumption (Kw/H)">
-                        <button type="submit">Add Device</button>
-                    </form>
                 </div>
             </div>
         </content>

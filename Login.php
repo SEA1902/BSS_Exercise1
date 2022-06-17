@@ -11,10 +11,11 @@ include('./model/Person/Person.php');
 include('./model/database/DBConnect.php');
 
 $personController = new PersonController();
-
+$loginErr ="";
 ?>
 <?php if($_SERVER['REQUEST_METHOD'] === "POST" ): ?>
     <?php
+
     session_start();
     $stmt = $personController->check();
     $count = $stmt->rowCount();
@@ -24,7 +25,7 @@ $personController = new PersonController();
         var_dump($_SESSION['user']);
         header('Location: index.php');exit;
     }else{
-        echo "Tên đăng nhập hoặc mật khẩu chưa chính xác";
+        echo "Email hoặc mật khẩu chưa chính xác";
     }
     ?>
 
@@ -42,7 +43,7 @@ $personController = new PersonController();
 </head>
 <body>
 <div class = "container">
-    <form action="" method="POST" class="form">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="form">
         <legend class="form-label">Đăng nhập</legend>
         <div class="form-group">
             <label for="" class="form-group_label">Email:</label></br>
@@ -51,11 +52,13 @@ $personController = new PersonController();
 
         <div class="form-group">
             <label for="" class="form-group_label">Mật khẩu:</label></br>
-            <input type="text" class="form-control" name="password">
+            <input type="password" class="form-control" name="password">
+            <span class="error"> <?php echo $loginErr;?></span>
         </div>
 
         <div class="form-submit">
             <input type="submit" class="btn-submit" name="dangnhap" value="Đăng nhập">
+            <a href="./Register.php" >or create new account</a>
         </div>
     </form>
 

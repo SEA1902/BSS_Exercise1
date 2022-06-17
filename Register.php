@@ -15,20 +15,15 @@ $personController = new PersonController();
 $result = $personController->getAllPerson();
 
 ?>
-<?php
-//foreach($result as $person){
-//    echo $person->getName();
-//}
 
-?>
-
-<?php if($_SERVER['REQUEST_METHOD'] === "POST" && isset($_POST['dangky'])): ?>
+<?php if($_SERVER['REQUEST_METHOD'] === "POST" ): ?>
     <?php
-        $personController->add();
-        header('Location: Login.php');exit;
+    $personController->add();
+    header('Location: Register.php');
     ?>
 
 <?php else: ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -41,16 +36,19 @@ $result = $personController->getAllPerson();
 </head>
 <body>
 <div class = "container">
-        <form action="" method="POST" class="form">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="form">
             <legend class="form-label">Đăng ký tài khoản</legend>
             <div class="form-group">
                 <label for="" class="form-group_label">Tên người dùng:</label></br>
                 <input type="text" class="form-control" name="name">
+<!--                <span class="error"> --><?php //echo $nameErr ;?><!--</span>-->
             </div>
 
             <div class="form-group">
                 <label for="" class="form-group_label">Email:</label></br>
                 <input type="text" class="form-control" name="email">
+<!--                <span class="error"> --><?php //echo $emailErr ;?><!--</span>-->
+
             </div>
 
             <div class="form-group form-group-radio">
@@ -59,15 +57,18 @@ $result = $personController->getAllPerson();
                 <label for="gender" class="form-group_label">Female</label>
                 <input type="radio" class="form-control_radio" name="gender" value="1">
                 <label for="gender" class="form-group_label">Male</label>
+<!--                <span class="error"> --><?php //echo $genderErr ;?><!--</span>-->
             </div>
 
             <div class="form-group">
                 <label for="" class="form-group_label">Password:</label></br>
-                <input type="text" class="form-control" name="password">
+                <input type="password" class="form-control" name="password">
+<!--                <span class="error"> --><?php //echo $passwordErr ;?><!--</span>-->
             </div>
 
             <div class="form-submit">
                 <button type="submit" class="btn-submit" name="dangky">Đăng ký</button>
+                <a href="Login.php" >Đăng nhập</a>
             </div>
         </form>
 
