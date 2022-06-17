@@ -5,18 +5,18 @@ namespace Model\Device;
 class Device
 {
     protected $id;
-    protected $device;
+    protected $name_device;
     protected $ip;
     protected $mac;
-    protected $date;
+    protected $create_date;
     protected $power_consumption;
 
-    public function __construct($device, $ip, $mac, $date, $power_consumption)
+    public function __construct($name_device, $ip, $mac, $create_date, $power_consumption)
     {
-        $this->device = $device;
+        $this->name_device = $name_device;
         $this->ip = $ip;
         $this->mac = $mac;
-        $this->date = $date;
+        $this->create_date = $create_date;
         $this->power_consumption = $power_consumption;
     }
 
@@ -24,14 +24,14 @@ class Device
     {
         return $this->id;
     }
-    public function getDevice()
+    public function getName_device()
     {
-        return $this->device;
+        return $this->name_device;
     }
 
-    public function setDevice($device): void
+    public function setName_device($name_device): void
     {
-        $this->device = $device;
+        $this->name_device = $name_device;
     }
     public function getIp()
     {
@@ -51,14 +51,14 @@ class Device
     {
         $this->mac = $mac;
     }
-    public function getDate()
+    public function getCreate_date()
     {
-        return $this->date;
+        return $this->create_date;
     }
 
-    public function setDate($date): void
+    public function setCreate_date($create_date): void
     {
-        $this->date = $date;
+        $this->create_date = $create_date;
     }
 
     public function getPower_consumption()

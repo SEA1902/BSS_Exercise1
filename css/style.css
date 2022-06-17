@@ -11,6 +11,7 @@ body{
     justify-content: center;
     align-items: center;
 }
+/*----------------------------------form--------------------------------*/
 .form{
     width: 30%;
     padding: 20px 20px;
@@ -68,13 +69,13 @@ body{
     outline: none;
 }
 
-/*   */
 
 .home-layout{
     width: 100vw;
     display: flex;
 }
 
+/*-------------------sidebar-------------------*/
 .sidebar{
     background-color: #ffffff;
     width: 250px;
@@ -119,6 +120,8 @@ body{
 .sidebar-group .active{
     color: deepskyblue;
 }
+
+/*--------------------------container----------------*/
 .home-container{
     width: 100%;
 }
@@ -147,10 +150,11 @@ body{
     padding: 5px;
 }
 
+/*---------------------table---------------------------*/
+
 .content-table{
     width: 100%;
 }
-/*  table  */
 
 table {
     width: 100%;
@@ -159,7 +163,6 @@ table {
     margin: 50px auto;
     padding: 0;
 }
-
 
 table tr {
     background-color: #ffffff;
@@ -177,7 +180,6 @@ table th {
     font-weight: 500;
     font-size: .85em;
     letter-spacing: .1em;
-    border-bottom: 1px;
 }
 
 table .power{
@@ -231,11 +233,12 @@ table .total-power{
     width: 400px;
 }
 
-/*          Logs             */
-
+/*-----------------------Logs-----------------------------*/
+/* ---------------search---------*/
 .content-search{
     display: flex;
     justify-content: space-between;
+    margin-bottom: -40px;
 }
 .search{
 
@@ -251,7 +254,7 @@ table .total-power{
     border: white;
     background-color: #0194c5;
     color: white;
-    border-radius: 2px;
+    border-radius: 4px;
     box-shadow: 1px 1px ;
     padding: 5px 10px;
 }

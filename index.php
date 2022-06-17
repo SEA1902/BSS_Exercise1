@@ -26,7 +26,7 @@ if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER["REQUEST_METHOD"] == "POST"){
 $datachart = [];
 
 foreach ($devices as $device){
-    $data = ["label"=>$device["device"],"y"=>$device["power_consumption"]];
+    $data = ["label"=>$device["name_device"],"y"=>$device["power_consumption"]];
     array_push($datachart, $data);
 }
 ?>
@@ -110,10 +110,10 @@ foreach ($devices as $device){
                     <?php
                      foreach ($devices as $device){
                          echo "<tr>";
-                        echo "<td data-label='Device'>".$device['device']."</td>";
+                        echo "<td data-label='Device'>".$device['name_device']."</td>";
                         echo "<td data-label='MAC Address'>".$device['mac']."</td>";
                         echo "<td data-label='IP'>".$device['ip']."</td>";
-                        echo "<td data-label='Created Date'>".$device['date']."</td>";
+                        echo "<td data-label='Created Date'>".$device['create_date']."</td>";
                         echo "<td data-label='Power Consumption (Kw/H)' class='power'>".$device['power_consumption']."</td>";
                         echo "</tr>";
                      }
@@ -142,7 +142,7 @@ foreach ($devices as $device){
                     <div id="chartContainer" ></div>
                 </div>
                 <form method="POST" class="add-device">
-                    <input type="text" name="device" placeholder="name">
+                    <input type="text" name="name_device" placeholder="name">
                     <input type="text" name="ip" placeholder="IP">
                     <input type="text" name="mac" placeholder="MAC">
                     <input type="text" name="power_consumption" placeholder="Power Consumption (Kw/H)">

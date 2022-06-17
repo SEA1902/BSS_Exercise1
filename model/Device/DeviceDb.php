@@ -14,13 +14,13 @@ class DeviceDb
     public function addDevice($device)
     {
         try {
-            $sql = "INSERT INTO device(device, ip, mac, date, power_consumption) VALUE (?,?,?,?,?)";
+            $sql = "INSERT INTO device(name_device, ip, mac, create_date, power_consumption) VALUE (?,?,?,?,?)";
             $stmt = $this->connect->prepare($sql);
             $newDevice = [
-                $device->getDevice(),
+                $device->getName_device(),
                 $device->getIp(),
                 $device->getMac(),
-                $device->getDate(),
+                $device->getCreate_date(),
                 $device->getPower_consumption(),
             ];
 
@@ -46,7 +46,7 @@ class DeviceDb
     {
         $devices = [];
         foreach ($result as $key => $item) {
-            $device = new Device($item["device"], $item["ip"], $item["mac"],$item["date"], $item["power_consumption"]);
+            $device = new Device($item["name_device"], $item["ip"], $item["mac"],$item["create_date"], $item["power_consumption"]);
             array_push($devices, $device);
         }
 

@@ -23,12 +23,12 @@ class DeviceController
 
     public function add(){
         if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
-            $device = $_POST["device"];
+            $name_device = $_POST["name_device"];
             $ip = $_POST["ip"];
             $mac = $_POST["mac"];
-            $date = date("y-m-d");
+            $create_date = date("y-m-d");
             $power_consumption = $_POST["power_consumption"];
-            $device = new Device($device, $ip, $mac,$date, $power_consumption);
+            $device = new Device($name_device, $ip, $mac, $create_date, $power_consumption);
             $this->deviceDb->addDevice($device);
         }
 
