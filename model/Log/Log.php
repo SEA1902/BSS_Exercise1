@@ -4,25 +4,25 @@ namespace Model\Log;
 
 class Log
 {
-    protected $device_id;
+    protected $id;
     protected $action;
     protected $date;
 
-    public function __construct($device_id, $action, $date)
+    public function __construct($id, $action, $date)
     {
-        $this->device_id = $device_id;
+        $this->id = $id;
         $this->action = $action;
         $this->date = $date;
     }
 
-    public function getDeviceId()
+    public function getId()
     {
-        return $this->device_id;
+        return $this->id;
     }
 
-    public function setDeviceId($device_id): void
+    public function setId($id): void
     {
-        $this->device_id = $device_id;
+        $this->id = $id;
     }
 
     public function getAction()

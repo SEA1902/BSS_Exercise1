@@ -17,10 +17,11 @@ $personController = new PersonController();
 
     $stmt = $personController->check();
     $count = $stmt->rowCount();
+//    dd($stmt);
     if($count > 0){
         session_start();
         $_SESSION['user'] = $stmt->fetchAll();
-        var_dump($_SESSION['user']);
+//        var_dump($_SESSION['user']);
         header('Location: index.php');exit;
     }else{
         $err = "Email hoặc mật khẩu không chính xác";
@@ -44,7 +45,7 @@ $personController = new PersonController();
 <body>
 
 <div class = "container">
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" class="form">
+    <form action="" method="POST" class="form">
         <legend class="form-label">Đăng nhập</legend>
         <div class="form-group">
             <label for="" class="form-group_label">Email:</label></br>

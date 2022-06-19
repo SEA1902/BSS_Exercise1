@@ -11,6 +11,14 @@ class PersonDb
         $this->connect = $connect;
     }
 
+    public function getPerson($id){
+        $sql = "SELECT * FROM person WHERE id='$id' ";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
     public function checkPerson($email, $password)
     {
         $sql = "SELECT * FROM person WHERE email='".$email."' AND password='".$password."'";
@@ -38,6 +46,18 @@ class PersonDb
             dd($e);
         }
     }
+
+    public function updatePerson($person, $id)
+    {
+        $name = $person->getName();
+        $email = $person->getEmail();
+        $gender = $person->getGender();
+        $password = $person->getPassword();
+        $sql = "UPDATE person SET name = '$name', email = '$email', gender = '$gender', password = '$password' WHERE id = '$id'";
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+    }
+
     public function getAllPerson()
     {
         $sql = 'Select * from person';

@@ -50,7 +50,9 @@ body{
 .form-submit{
     display: flex;
     justify-content: space-around;
+    margin-bottom: 20px;
 }
+
 .form-submit a{
     text-decoration: none;
     padding: 10px 5px;
@@ -83,7 +85,7 @@ body{
     background-color: #ffffff;
     width: 250px;
     min-height: 1000px;
-    box-shadow:2px 2px #a4a4a4;
+    border-right: 0.4px solid #e7e2e2;
 }
 
 .icon-device{
@@ -124,7 +126,7 @@ body{
     color: deepskyblue;
 }
 
-/*--------------------------container----------------*/
+/*--------------------------container-image----------------*/
 .home-container{
     width: 100%;
 }
@@ -144,12 +146,31 @@ body{
 .content-wrapper{
     margin: 50px 90px;
 }
+.setting{
+    display: flex;
+    justify-content: space-between;
+}
+.setting form{
+    height: available;
+    width: 45%;
+    background-color: #fff;
+}
 .header-group{
-    display: block;
-    text-align: right;
-    padding: 12px;
+    display: flex;
+    justify-content: right;
+    padding: 8px;
+}
+.icon-user{
+    padding: 5px;
 }
 .header-identity{
+    display: block;
+    padding: 5px;
+}
+.image{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     padding: 5px;
 }
 
@@ -195,6 +216,9 @@ table .total-power{
     font-weight: 600;
     text-align: right;
 }
+table .total-page{
+    font-weight: 600;
+}
 .wrapper{
     display: flex;
     justify-content: space-between;
@@ -237,7 +261,7 @@ table .total-power{
 }
 
 /*-----------------------Log-----------------------------*/
-/* ---------------search---------*/
+/* ---------------search/total---------*/
 .content-search{
     display: flex;
     justify-content: space-between;
@@ -246,13 +270,13 @@ table .total-power{
 .search{
 
 }
-.search input{
+.search input, .total-device input{
     padding: 5px 10px;
     border: white;
-    background-color: #fcecec;
+    background-color: #d7d5d5;
     border-radius: 2px;
 }
-.search button{
+.search button, .total-device button{
     margin-left: 5px;
     border: white;
     background-color: #0194c5;
@@ -260,4 +284,40 @@ table .total-power{
     border-radius: 4px;
     box-shadow: 1px 1px ;
     padding: 5px 10px;
+}
+
+/*-------pagination-------------*/
+.pagination {
+    float: right;
+    display: flex;
+}
+
+.pagination span {
+    cursor: pointer;
+    color: black;
+    float: left;
+    padding: 8px 16px;;
+}
+
+.pagination span.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination span:hover:not(.active) {
+    background-color: #ddd;
+    border-radius: 5px;
+}
+.pagination form{
+    margin-left: 10px;
+}
+.pagination input{
+    border: 0.1px solid #d3d2d2;
+    padding: 8px 4px;
+}
+.pagination form button{
+    cursor: pointer;
+    border: 0.1px solid #d3d2d2;
+    padding: 8px 8px;
 }

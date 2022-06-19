@@ -85,13 +85,13 @@ foreach ($devices as $device){
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-gear"></i>
-            <a href="#">Settings</a>
+            <a href="Setting.php">Settings</a>
         </div>
     </aside>
     <div class="home-container">
         <header class="header">
             <div class="header-group">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user icon-user"></i>
                 <span class='header-identity'>
                     <?php
                         echo $user[0]["email"];

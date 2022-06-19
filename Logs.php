@@ -13,9 +13,44 @@ include('./model/Log/LogDb.php');
 include('./model/Log/Log.php');
 include('./model/database/DBConnect.php');
 
+$total = 10;
+if(isset($_GET["total"]) && !empty($_GET["total"])) $total = $_GET["total"];
 $logController = new LogController();
 $logs = $logController->getAllLog();
+//$i = $_GET["numberPage"];
+$arr = [];
+if(isset($_GET["search"]) && !empty($_GET["search"])) {
+    $search = $_GET["search"];
+    foreach ($logs as $log){
+        if($log["name_device"] == $search) array_push($arr, $log);
+    }
+}else{
+    $arr = $logs;
+}
+$numberAllLogs = sizeof($arr);
+$numberPages = (($numberAllLogs%$total) == 0) ? (floor($numberAllLogs/$total)) : (floor($numberAllLogs/$total) + 1);
+if($numberPages == 0) $numberPages = 1;
+$currentPage = 1;
+//
+//if( isset($_POST["page"])){
+//    dd($_POST["page"]);
+//}
+//if(isset($_SESSION["currentPage"]) ) {
+//    $currentPage = $_SESSION["currentPage"];
+//    unset($_SESSION["currentPage"]);
+//}
+//echo $currentPage;
+
+if($currentPage == $numberPages) $size = $numberAllLogs;
+else $size = $currentPage*$total;
+
+$renderLogs = [];
+for ($i = ($currentPage-1)*$total; $i < $size; $i++){
+    array_push($renderLogs, $arr[$i]);
+}
+//var_dump($renderLogs);
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -47,7 +82,7 @@ $logs = $logController->getAllLog();
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-gear"></i>
-            <a href="#">Settings</a>
+            <a href="Setting.php">Settings</a>
         </div>
     </aside>
 
@@ -56,7 +91,7 @@ $logs = $logController->getAllLog();
 <!--          header            -->
         <header class="header">
             <div class="header-group">
-                <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user icon-user"></i>
                 <span class='header-identity'>
                     <?php
                     echo $user[0]["email"];
@@ -70,10 +105,15 @@ $logs = $logController->getAllLog();
             <div class="content-wrapper">
                 <div class="content-search">
                     <span>Action Logs</span>
-                    <div class="search">
+                    <form class="total-device" method="GET" action="">
+                        <span>Total: </span>
+                        <input type="number" name="total" id="total" value="<?php echo $total;?>">
+                        <button type="submit">Select</button>
+                    </form>
+                    <form class="search" method="get" action="">
                         <input type="text" name="search" id="search" placeholder="name">
                         <button type="submit">Search</button>
-                    </div>
+                    </form>
                 </div>
                 <div class="content-table">
                     <table>
@@ -87,9 +127,9 @@ $logs = $logController->getAllLog();
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($logs as $log){
+                        foreach ($renderLogs as $log){
                             echo "<tr>";
-                            echo "<td >".$log['device_id']."</td>";
+                            echo "<td >".$log['id']."</td>";
                             echo "<td >".$log['name_device']."</td>";
                             echo "<td >".$log['action']."</td>";
                             echo "<td >".$log['date']."</td>";
@@ -101,14 +141,52 @@ $logs = $logController->getAllLog();
                             <th class="total-label">Total</th>
                             <th></th>
                             <th></th>
-                            <th class="total-page">
-
-                            </th>
+                            <th class="total-page"><?php echo $total;?></th>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="wrapper">
+                <div class="pagination">
+                    <?php
+
+                    for ($i = 1; $i <= $numberPages; $i++){
+                        if($i == $currentPage) {
+                            echo "<span class='active'>$i</span>";
+                        }
+                        else echo "<span>$i</span>";
+                    }
+
+//                    for ($i = 1; $i <= $numberPages; $i++){
+//                        if($i == $currentPage) {
+//                            echo "<a href='Logs.php'>";
+//                            echo "<form method='post'>";
+//                            echo "<button type='submit'' name='page' class='active'>";
+/*                            echo "<?php $currentPage = $i ?>";*/
+//                            if(isset($_SESSION["currentPage"])) $_SESSION["currentPage"] = $i;
+//                            echo "$i";
+//                            echo "</button>";
+//                            echo "</form>";
+//                            echo "</a>";
+//                        }
+//                        else {
+//                            echo "<a href='Logs.php'>";
+//                            echo "<form method='post'>";
+//                            echo "<button type='submit'' name='page'>";
+/*                            echo "<?php $currentPage = $i ?>";*/
+//                            if(isset($_SESSION["currentPage"])) $_SESSION["currentPage"] = $i;
+//                            echo "$i";
+//                            echo "</button>";
+//                            echo "</form>";
+//                            echo "</a>";
+//                        };
+//                    }
+
+                    ?>
+                    <form class="" method="get" action="">
+                        <input name="currentPage" type="number" min="1" max="<?php echo $numberPages?>"
+                               placeholder="<?php echo $currentPage."/".$numberPages; ?>" >
+                        <button type="submit">Go</button>
+                    </form>
 
                 </div>
             </div>

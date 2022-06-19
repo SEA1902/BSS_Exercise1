@@ -75,6 +75,7 @@ try{
                         echo "<span>*" . $err . "</span>";
                         echo "</br>";
                     }
+                    unset($_SESSION['err']);
                 }
                 ?>
             </div>

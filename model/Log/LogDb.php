@@ -13,9 +13,9 @@ class LogDb
 
     public function getAllLog()
     {
-        $sql = 'select log.device_id, device.name_device, log.action, log.date 
+        $sql = 'select log.id, device.name_device, log.action, log.date 
                 from log, device
-                where log.device_id = device.id';
+                where log.id = device.id';
         $stmt = $this->connect->prepare($sql);
         $stmt->execute();
 
