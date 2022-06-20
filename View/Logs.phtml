@@ -52,7 +52,7 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Document</title>
    </script>
@@ -84,7 +84,14 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
 <!--          header            -->
         <header class="header">
             <div class="header-group">
-                <i class="fa-solid fa-user icon-user"></i>
+                <?php
+                if(sizeof($_SESSION['image']) > 0){
+                    $url = $_SESSION['image'][0]["url"];
+                    echo "<img src='$url' class ='image'>";
+                }else{
+                    echo "<i class='fa-solid fa-user icon-user'></i>";
+                }
+                ?>
                 <span class='header-identity'>
                     <?php
                     echo $user[0]["email"];

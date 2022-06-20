@@ -27,6 +27,10 @@ class DeviceController
         include_once ROOT_PATH . '/View/Dashboard.phtml';
     }
 
+    public function getDeviceByMac($mac){
+        return $this->deviceDb->getDeviceByMac($mac);
+    }
+
     public function add()
     {
         try {
@@ -40,6 +44,14 @@ class DeviceController
                 $errors[] = "IP is required";
             }else{
                 $ip = $this->test_input($_POST["ip"]);
+            }
+
+            if (empty($_POST["mac"])) {
+                $errors[] = "MAC is required";
+            }else{
+                $mac = $this->test_input($_POST["mac"]);
+                $count = $this->getDeviceByMac($mac);
+                if($count > 0) $errors[] = "MAC is unique";
             }
 
             if (isset($errors)) {

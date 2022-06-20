@@ -8,40 +8,8 @@ if(isset($_SESSION["user"])){
 }
 ?>
 <?php
-
-use Controller\PersonController;
-use Controller\ImageController;
-
-$personController = new PersonController();
-$imageController = new ImageController();
 $id = $user[0]["id"];
-$image = $imageController->getImage($id);
 ?>
-
-<?php if($_SERVER['REQUEST_METHOD'] === "POST"): ?>
-    <?php
-
-    if (isset($_POST["update"])){
-        try{
-            $personController->update($id);
-            $_SESSION['user'] = $personController->getPerson($id);
-            header('Location: Setting.phtml');
-        } catch(\Controller\InputException  $e){
-            $errs = $e->getData();
-            $_SESSION['err'] = $errs;
-            header('Location: Setting.php');
-        }
-    }elseif (isset($_POST["add_image"])){
-        $imageController->addImage($id);
-        header('Location: Setting.php');
-    } elseif (isset($_POST["update_image"])){
-        $imageController->updateImage($id);
-        header('Location: Setting.php');
-    }
-
-    ?>
-
-<?php else: ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -49,7 +17,7 @@ $image = $imageController->getImage($id);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>Document</title>
     </script>
@@ -82,8 +50,8 @@ $image = $imageController->getImage($id);
         <header class="header">
             <div class="header-group">
                 <?php
-                if(sizeof($image) > 0){
-                    $url = $image[0]["url"];
+                if(sizeof($_SESSION['image']) > 0){
+                    $url = $_SESSION['image'][0]["url"];
                     echo "<img src='$url' class ='image'>";
                 }else{
                     echo "<i class='fa-solid fa-user icon-user'></i>";
@@ -103,12 +71,12 @@ $image = $imageController->getImage($id);
                 <form method="post" action="" class="form-image">
                     <div class="form-group">
                         <label for="" class="form-group_label">Ảnh đại diện:</label></br>
-                        <textarea type="url" class="form-control" name="url"  accept="image/*" ><?php if(sizeof($image)>0) echo $image[0]['url']; ?></textarea>
+                        <textarea type="url" class="form-control" name="url"  accept="image/*" ><?php if(sizeof($_SESSION['image'])>0) echo $_SESSION['image'][0]['url']; ?></textarea>
                     </div>
                     <input type="hidden" class="form-control" name="id" value="<?php echo $user[0]['id']?>">
                     <div class="form-submit">
                         <?php
-                        if(sizeof($image) > 0){
+                        if(sizeof($_SESSION['image']) > 0){
                             echo "<button type='submit' class='btn-submit' name = 'update_image'>Thay đổi ảnh</button>";
                         }else{
                             echo "<button type='submit' class='btn-submit' name = 'add_image'>Thêm ảnh</button>";
@@ -167,5 +135,3 @@ $image = $imageController->getImage($id);
 
 </body>
 </html>
-
-<?php endif; ?>

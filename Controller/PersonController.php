@@ -40,7 +40,6 @@ class PersonController
     }
 
     public function check(){
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
             $email = $_POST["email"];
             $password = $_POST["password"];
             $stmt = $this->personDb->checkPerson($email, $password);
@@ -54,10 +53,9 @@ class PersonController
                 $err = "Email hoặc mật khẩu không chính xác";
                 session_start();
                 $_SESSION["err"]= $err;
+//                var_dump($_SESSION["err"]);exit;
                 header('Location: Login.php');exit;
             }
-
-        }
     }
 
     public function update(){
@@ -106,9 +104,15 @@ class PersonController
             }
         }elseif (isset($_POST["add_image"])){
             $imageController->addImage($id);
+            session_start();
+            $image = $imageController->getImage($id);
+            $_SESSION['image'] = $image;
             header('Location: Setting.php');
         } elseif (isset($_POST["update_image"])){
             $imageController->updateImage($id);
+            session_start();
+            $image = $imageController->getImage($id);
+            $_SESSION['image'] = $image;
             header('Location: Setting.php');
         }
     }

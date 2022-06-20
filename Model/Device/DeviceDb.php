@@ -31,6 +31,18 @@ class DeviceDb
             dd($e);
         }
     }
+
+    public function getDeviceByMac($mac)
+    {
+        $sql = "Select * from device WHERE mac = '$mac' " ;
+        $stmt = $this->connect->prepare($sql);
+        $stmt->execute();
+
+        $count = $stmt->rowCount();
+
+        return $count;
+    }
+
     public function getAllDevice()
     {
         $sql = 'Select * from device';

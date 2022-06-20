@@ -1,6 +1,6 @@
 <?php
 
-namespace model\Database;
+namespace Model\Database;
 
 use PDO;
 use PDOException;
@@ -14,8 +14,8 @@ class DBConnect
     public function __construct()
     {
         $this->dns = 'mysql:host=localhost;dbname=BSS_Exercise1';
-        $this->username = 'admin';
-        $this->password = 'password';
+        $this->username = 'root';
+        $this->password = '';
     }
 
     public function connect()

@@ -256,8 +256,11 @@ table .total-page{
 /* CHART-SKILLS STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #chartContainer{
-    height: 315px;
-    width: 375px;
+    max-height: 300px;
+    max-width: 100%;
+}
+.chart{
+    height: 400px;
 }
 
 /*-----------------------Log-----------------------------*/
@@ -331,8 +334,11 @@ table .total-page{
     padding: 12px 10px;
     display:none;
 }
-
+.sidebar-indentity{
+    display: none;
+}
 @media screen and (max-width: 414px){
+
     .content-wrapper{
         margin-top: 0px;
         margin-left: 10px;
@@ -340,6 +346,14 @@ table .total-page{
     }
     .sidebar{
         display: none;
+        position: fixed;
+    }
+    .sidebar-label{
+        display: none;
+    }
+    .sidebar-indentity{
+        display: block;
+        text-align: center;
     }
     .header{
         display: none;
@@ -351,9 +365,15 @@ table .total-page{
         display: block;
         margin:10px;
     }
-    .add-device{
-        margin-top:20px;
-        width:90%;
+    .add-device {
+        margin-top: 20px;
+        width: 90%;
+    }
+    #chartContainer .canvasjs-chart-container{
+        position: inherit !important;
+    }
+    #chartContainer .canvasjs-chart-canvas{
+        position: inherit !important;
     }
     .openbtn{
         display:block;
