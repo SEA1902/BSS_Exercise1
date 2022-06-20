@@ -14,10 +14,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
         $personController->renderSetting();
         break;
-
-//    case "POST":
-//        $deviceController->add();
-
+//
+    case "POST":
+        $personController->update();
+        break;
     default:
         //404;
         break;

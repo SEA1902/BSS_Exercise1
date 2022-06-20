@@ -4,8 +4,6 @@ namespace View\Login;
 
 use Controller\PersonController;
 
-
-$personController = new PersonController();
 ?>
 
     <!doctype html>
@@ -25,12 +23,12 @@ $personController = new PersonController();
             <legend class="form-label">Đăng nhập</legend>
             <div class="form-group">
                 <label for="" class="form-group_label">Email:</label></br>
-                <input type="text" class="form-control" name="email">
+                <input type="text" class="form-control" name="email" placeholder="email">
             </div>
 
             <div class="form-group">
                 <label for="" class="form-group_label">Mật khẩu:</label></br>
-                <input type="password" class="form-control" name="password">
+                <input type="password" class="form-control" name="password" placeholder="password">
                 <span class="error">
                 <?php
                 if(isset($_SESSION["err"])){

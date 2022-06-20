@@ -54,47 +54,62 @@ class PersonController
                 $err = "Email hoặc mật khẩu không chính xác";
                 session_start();
                 $_SESSION["err"]= $err;
-//                var_dump($_SESSION["err"]);exit;
                 header('Location: Login.php');exit;
             }
 
         }
     }
 
-    public function update($id){
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
-            if (empty($_POST["name"])) {
-                $errors[]  = "Name is required";
-            } else{
-                $name = $this->test_input($_POST["name"]);
-            }
-
-            if (empty($_POST["email"])) {
-                $errors[]  = "Email is required";
-            } else{
-                $email= $this->test_input($_POST["email"]);
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $errors[] = "Invalid email format";
+    public function update(){
+        $imageController = new ImageController();
+        $id = $_POST["id"];
+        if (isset($_POST["update"])){
+            try{
+                if (empty($_POST["name"])) {
+                    $errors[]  = "Name is required";
+                } else{
+                    $name = $this->test_input($_POST["name"]);
                 }
-            }
 
-            if (empty($_POST["password"])) {
-                $errors[]  = "Password is required";
-            } else{
-                $password = $this->test_input($_POST["password"]);
-                if (strlen($_POST["password"]) < '8') {
-                    $errors[]  = "Your Password Must Contain At Least 8 Characters!";
+                if (empty($_POST["email"])) {
+                    $errors[]  = "Email is required";
+                } else{
+                    $email= $this->test_input($_POST["email"]);
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $errors[] = "Invalid email format";
+                    }
                 }
+
+                if (empty($_POST["password"])) {
+                    $errors[]  = "Password is required";
+                } else{
+                    $password = $this->test_input($_POST["password"]);
+                    if (strlen($_POST["password"]) < '8') {
+                        $errors[]  = "Your Password Must Contain At Least 8 Characters!";
+                    }
+                }
+
+                if (isset($errors)) {
+                    throw new InputException($errors);
+                }
+                $gender = $_POST["gender"];
+
+                $person = new Person($name, $email, $gender, $password);
+                $this->personDb->updatePerson($person, $id);
+                session_start();
+                $_SESSION['user'] = $this->getPerson($id);
+                header('Location: Setting.php');
+            } catch(\Controller\InputException  $e){
+                $errs = $e->getData();
+                $_SESSION['err'] = $errs;
+                header('Location: Setting.php');
             }
-
-
-            if (isset($errors)) {
-                throw new InputException($errors);
-            }
-            $gender = $_POST["gender"];
-
-            $person = new Person($name, $email, $gender, $password);
-            $this->personDb->updatePerson($person, $id);
+        }elseif (isset($_POST["add_image"])){
+            $imageController->addImage($id);
+            header('Location: Setting.php');
+        } elseif (isset($_POST["update_image"])){
+            $imageController->updateImage($id);
+            header('Location: Setting.php');
         }
     }
 

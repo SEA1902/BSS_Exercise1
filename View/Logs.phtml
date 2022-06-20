@@ -1,12 +1,18 @@
 <?php
 session_start();
-$user = (isset($_SESSION['user'])) ? $_SESSION['user']: [];
+if(isset($_SESSION["user"])){
+    $user = $_SESSION["user"];
+}else{
+    header('Location: Login.php');
+}
 ?>
 <?php
 use Controller\LogController;
 
 $total = 10;
-if(isset($_GET["total"]) && !empty($_GET["total"])) $total = $_GET["total"];
+if(isset($_GET["total"]) && !empty($_GET["total"])) {
+    $total = $_GET["total"];
+}
 $logController = new LogController();
 $logs = $logController->getAllLog();
 
@@ -22,12 +28,12 @@ if(isset($_GET["search"]) && !empty($_GET["search"])) {
 $numberAllLogs = sizeof($arr);
 $numberPages = (($numberAllLogs%$total) == 0) ? (floor($numberAllLogs/$total)) : (floor($numberAllLogs/$total) + 1);
 if($numberPages == 0) $numberPages = 1;
-$_SESSION['currentPage'] = 1;
-if(isset($_GET["currentPage"]) && !empty($_GET["currentPage"])) {
-    $_SESSION['currentPage'] = $_GET["currentPage"];
-    $currentPage = $_SESSION['currentPage'];
+
+$currentPage = 1;
+if(isset($_GET["currentPage"])) {
+$currentPage = $_GET["currentPage"];
 }
-else $currentPage = $_SESSION['currentPage'];
+
 if($currentPage == $numberPages) $size = $numberAllLogs;
 else $size = $currentPage*$total;
 
@@ -95,10 +101,26 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
                     <form class="total-device" method="GET" action="">
                         <span>Total: </span>
                         <input type="number" name="total" id="total" value="<?php echo $total;?>">
+
+                        <?php if (isset($_GET["currentPage"])) : ?>
+                            <input type="hidden" name="currentPage" value="<?php echo $_GET["currentPage"];?>">
+                        <?php endif; ?>
                         <button type="submit">Select</button>
+<!--                        --><?php
+//                        $paginationUrl = $_SERVER["PHP_SELF"];
+//                        if(isset($_GET["currentPage"])){
+//                            $paginationUrl .= "?currentPage=" .$_GET["currentPage"];
+//                            echo "<a type='submit' href='$paginationUrl' >Select</a>";
+//                        }else {
+//                            echo "<a type='submit' href='$paginationUrl' >Select</a>";
+//                        }
+//                        ?>
                     </form>
                     <form class="search" method="get" action="">
                         <input type="text" name="search" id="search" placeholder="name">
+                        <?php if (isset($_GET["total"])) : ?>
+                            <input type="hidden" name="total" value="<?php echo $_GET["total"];?>">
+                        <?php endif; ?>
                         <button type="submit">Search</button>
                     </form>
                 </div>
@@ -137,43 +159,22 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
                     <?php
 
                     for ($i = 1; $i <= $numberPages; $i++){
+                        $paginationUrl = $_SERVER['PHP_SELF'];
                         if($i == $currentPage) {
-                            echo "<span class='active'>$i</span>";
+                            echo "<a href='#' class='active'>$i</a>";
                         }
-                        else echo "<span>$i</span>";
+
+                        else {
+
+                            $paginationUrl .= "?currentPage=$i";
+                            if (isset($_GET['total'])) {
+                                $paginationUrl .= "&total=" . $_GET['total'];
+                            }
+                            echo "<a href='$paginationUrl' >$i</a>";
+                        }
                     }
 
-//                    for ($i = 1; $i <= $numberPages; $i++){
-//                        if($i == $currentPage) {
-//                            echo "<a href='Logs.phtml'>";
-//                            echo "<form method='post'>";
-//                            echo "<button type='submit'' name='page' class='active'>";
-/*                            echo "<?php $currentPage = $i ?>";*/
-//                            if(isset($_SESSION["currentPage"])) $_SESSION["currentPage"] = $i;
-//                            echo "$i";
-//                            echo "</button>";
-//                            echo "</form>";
-//                            echo "</a>";
-//                        }
-//                        else {
-//                            echo "<a href='Logs.phtml'>";
-//                            echo "<form method='post'>";
-//                            echo "<button type='submit'' name='page'>";
-/*                            echo "<?php $currentPage = $i ?>";*/
-//                            if(isset($_SESSION["currentPage"])) $_SESSION["currentPage"] = $i;
-//                            echo "$i";
-//                            echo "</button>";
-//                            echo "</form>";
-//                            echo "</a>";
-//                        };
-//                    }
-
                     ?>
-                    <form class="" method="get" action="">
-                        <input name="currentPage" type="number" min="1" max="<?php echo $numberPages?>"
-                               placeholder="<?php echo $currentPage."/".$numberPages; ?>" >
-                        <button type="submit">Go</button>
-                    </form>
 
                 </div>
             </div>

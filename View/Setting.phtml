@@ -1,6 +1,11 @@
 <?php
 session_start();
-$user = (isset($_SESSION['user'])) ? $_SESSION['user']: [];
+
+if(isset($_SESSION["user"])){
+    $user = $_SESSION["user"];
+}else{
+    header('Location: Login.php');
+}
 ?>
 <?php
 
@@ -24,14 +29,14 @@ $image = $imageController->getImage($id);
         } catch(\Controller\InputException  $e){
             $errs = $e->getData();
             $_SESSION['err'] = $errs;
-            header('Location: Setting.phtml');
+            header('Location: Setting.php');
         }
     }elseif (isset($_POST["add_image"])){
         $imageController->addImage($id);
-        header('Location: Setting.phtml');
+        header('Location: Setting.php');
     } elseif (isset($_POST["update_image"])){
         $imageController->updateImage($id);
-        header('Location: Setting.phtml');
+        header('Location: Setting.php');
     }
 
     ?>
@@ -100,7 +105,7 @@ $image = $imageController->getImage($id);
                         <label for="" class="form-group_label">Ảnh đại diện:</label></br>
                         <textarea type="url" class="form-control" name="url"  accept="image/*" ><?php if(sizeof($image)>0) echo $image[0]['url']; ?></textarea>
                     </div>
-
+                    <input type="hidden" class="form-control" name="id" value="<?php echo $user[0]['id']?>">
                     <div class="form-submit">
                         <?php
                         if(sizeof($image) > 0){
@@ -137,6 +142,8 @@ $image = $imageController->getImage($id);
                         <label for="" class="form-group_label">Password:</label></br>
                         <input type="password" class="form-control" name="password" value="<?php echo $user[0]['password']?>">
                     </div>
+                    <input type="hidden" class="form-control" name="id" value="<?php echo $user[0]['id']?>">
+
                     <div class="error">
                         <?php
                         if(isset($_SESSION['err'])) {

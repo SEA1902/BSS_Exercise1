@@ -257,7 +257,7 @@ table .total-page{
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 #chartContainer{
     height: 315px;
-    width: 400px;
+    width: 375px;
 }
 
 /*-----------------------Log-----------------------------*/
@@ -292,20 +292,21 @@ table .total-page{
     display: flex;
 }
 
-.pagination span {
+.pagination a {
     cursor: pointer;
+    text-decoration: none;
     color: black;
     float: left;
     padding: 8px 16px;;
 }
 
-.pagination span.active {
+.pagination a.active {
     background-color: #4CAF50;
     color: white;
     border-radius: 5px;
 }
 
-.pagination span:hover:not(.active) {
+.pagination a:hover:not(.active) {
     background-color: #ddd;
     border-radius: 5px;
 }
@@ -320,4 +321,41 @@ table .total-page{
     cursor: pointer;
     border: 0.1px solid #d3d2d2;
     padding: 8px 8px;
+}
+
+/*----------------responsive----------------------------*/
+.openbtn{
+    border: none;
+    background-color: #f5f5f5;
+    font-size: 20px;
+    padding: 12px 10px;
+    display:none;
+}
+
+@media screen and (max-width: 414px){
+    .content-wrapper{
+        margin-top: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .sidebar{
+        display: none;
+    }
+    .header{
+        display: none;
+    }
+    .content-table{
+        display: none;
+    }
+    .wrapper{
+        display: block;
+        margin:10px;
+    }
+    .add-device{
+        margin-top:20px;
+        width:90%;
+    }
+    .openbtn{
+        display:block;
+    }
 }
