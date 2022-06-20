@@ -4,7 +4,7 @@ namespace Controller;
 
 use Model\Image\ImageDb;
 use Model\Image\Image;
-use model\Database\DBConnect;
+use Model\Database\DBConnect;
 class ImageController
 {
     protected $imageDb;

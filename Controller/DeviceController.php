@@ -2,9 +2,10 @@
 
 namespace Controller;
 
-use model\Database\DBConnect;
+use Model\Database\DBConnect;
 use Model\Device\Device;
-use model\Device\DeviceDb;
+use Model\Device\DeviceDb;
+use Exceptions\InputException;
 
 class DeviceController
 {
@@ -21,13 +22,14 @@ class DeviceController
         return $this->deviceDb->getAllDevice();
     }
 
-    /**
-     * @return bool|void
-     * @throws InputException
-     */
+    public function renderDashboard()
+    {
+        include_once ROOT_PATH . '/View/Dashboard.phtml';
+    }
+
     public function add()
     {
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
+        try {
             if (empty($_POST["name_device"])) {
                 $errors[]  = "Name device is required";
             } else{
@@ -48,7 +50,12 @@ class DeviceController
             $power_consumption = $this->test_input($_POST["power_consumption"]);
             $device = new Device($name_device, $ip, $mac, $create_date, $power_consumption);
             $this->deviceDb->addDevice($device);
-            return true;
+            header('Location: Dashboard.php');
+        } catch (InputException $e) {
+            $errs = $e->getData();
+            session_start();
+            $_SESSION['err'] = $errs;
+            header('Location: Dashboard.php');
         }
     }
 
@@ -59,20 +66,4 @@ class DeviceController
         return $data;
     }
 
-}
-
-class InputException extends \Exception
-{
-    private $data;
-
-    public function __construct($data, string $message = "", int $code = 0, ?Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
 }

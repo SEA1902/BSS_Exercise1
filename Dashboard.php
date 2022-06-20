@@ -14,8 +14,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
         $deviceController->renderDashboard();
         break;
 
-//    case "POST":
-//        $deviceController->add();
+    case "POST":
+        $deviceController->add();
+        break;
 
     default:
         //404;

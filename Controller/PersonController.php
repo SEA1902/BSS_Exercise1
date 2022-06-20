@@ -2,9 +2,10 @@
 
 namespace Controller;
 
-use model\Database\DBConnect;
+use Model\Database\DBConnect;
 use Model\Person\Person;
-use model\Person\PersonDb;;
+use Model\Person\PersonDb;;
+use Exceptions\InputException;
 
 class PersonController
 {
@@ -13,6 +14,20 @@ class PersonController
     {
         $db = new DBConnect();
         $this->personDb = new PersonDb($db->connect());
+    }
+    public function renderLogin()
+    {
+        include_once ROOT_PATH . '/View/Login.phtml';
+    }
+
+    public function renderRegister()
+    {
+        include_once ROOT_PATH . '/View/Register.phtml';
+    }
+
+    public function renderSetting()
+    {
+        include_once ROOT_PATH . '/View/Setting.phtml';
     }
 
     public function getAllPerson()
@@ -29,7 +44,20 @@ class PersonController
             $email = $_POST["email"];
             $password = $_POST["password"];
             $stmt = $this->personDb->checkPerson($email, $password);
-            return $stmt;
+            $count = $stmt->rowCount();
+
+            if($count > 0){
+                session_start();
+                $_SESSION['user'] = $stmt->fetchAll();
+                header('Location: index.php');exit;
+            }else{
+                $err = "Email hoặc mật khẩu không chính xác";
+                session_start();
+                $_SESSION["err"]= $err;
+//                var_dump($_SESSION["err"]);exit;
+                header('Location: Login.php');exit;
+            }
+
         }
     }
 
@@ -71,8 +99,7 @@ class PersonController
     }
 
     public function add(){
-
-        if(isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == "POST"){
+        try{
             if (empty($_POST["name"])) {
                 $errors[]  = "Name is required";
             } else{
@@ -102,12 +129,15 @@ class PersonController
                 throw new InputException($errors);
             }
 
-//            $name = $_POST["name"];
-//            $email = $_POST["email"];
             $gender = $this->test_input($_POST["gender"]);
-//            $password = $_POST["password"];
             $person = new Person($name, $email, $gender, $password);
             $this->personDb->addPerson($person);
+            header('Location: Login.php');
+        } catch(InputException  $e){
+            $errs = $e->getData();
+            session_start();
+            $_SESSION['err'] = $errs;
+            header('Location: Register.php');
         }
 
     }
@@ -119,18 +149,18 @@ class PersonController
     }
 
 }
-class InputException extends \Exception
-{
-    private $data;
-
-    public function __construct($data, string $message = "", int $code = 0, ?Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-        $this->data = $data;
-    }
-
-    public function getData()
-    {
-        return $this->data;
-    }
-}
+//class InputException extends \Exceptions
+//{
+//    private $data;
+//
+//    public function __construct($data, string $message = "", int $code = 0, ?Throwable $previous = null)
+//    {
+//        parent::__construct($message, $code, $previous);
+//        $this->data = $data;
+//    }
+//
+//    public function getData()
+//    {
+//        return $this->data;
+//    }
+//}
