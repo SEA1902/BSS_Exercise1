@@ -33,6 +33,7 @@ foreach ($devices as $device){
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
     <script>
         window.onload = function() {
@@ -87,6 +88,7 @@ foreach ($devices as $device){
                     echo $user[0]["email"];
                     ?>
             </span>
+
         </div>
         <div class="sidebar-group">
             <i class="fa-solid fa-laptop-medical"></i>
@@ -196,18 +198,23 @@ foreach ($devices as $device){
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <script>
-    function openSideBar(){
-        const sidebar = document.getElementById("sidebar");
-        const home_container = document.getElementById("home-container");
-        // console.log($("aside"));
-        sidebar.style.display = "block";
+    const sidebar = document.getElementById("sidebar");
 
-        sidebar.addEventListener("blur", function (event){
-            console.log(123);
-            sidebar.style.display = "none";
+    function openSideBar(){
+        sidebar.classList.add("sidebar-active") ;
+
+        window.addEventListener("mouseup", function(event) {
+            if (event.target != sidebar) {
+                sidebar.classList.remove("sidebar-active");
+            }
+        });
+
+        window.addEventListener("resize", () =>{
+            if(window.innerWidth > 414){
+                sidebar.classList.add("sidebar-active") ;
+            }
         });
     }
-
 </script>
 </body>
 </html>

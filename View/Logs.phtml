@@ -112,6 +112,10 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
                         <?php if (isset($_GET["currentPage"])) : ?>
                             <input type="hidden" name="currentPage" value="<?php echo $_GET["currentPage"];?>">
                         <?php endif; ?>
+
+                        <?php if (isset($_GET["search"])) : ?>
+                            <input type="hidden" name="search" value="<?php echo $_GET["search"];?>">
+                        <?php endif; ?>
                         <button type="submit">Select</button>
 <!--                        --><?php
 //                        $paginationUrl = $_SERVER["PHP_SELF"];
@@ -124,7 +128,12 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
 //                        ?>
                     </form>
                     <form class="search" method="get" action="">
-                        <input type="text" name="search" id="search" placeholder="name">
+                        <input type="text" name="search" id="search" placeholder="name" value="<?php
+                        if(isset($_GET["search"]) && !empty($_GET["search"])) {
+                            echo $_GET["search"];
+                        }
+
+                        ?>">
                         <?php if (isset($_GET["total"])) : ?>
                             <input type="hidden" name="total" value="<?php echo $_GET["total"];?>">
                         <?php endif; ?>
@@ -176,6 +185,9 @@ for ($i = ($currentPage-1)*$total; $i < $size; $i++){
                             $paginationUrl .= "?currentPage=$i";
                             if (isset($_GET['total'])) {
                                 $paginationUrl .= "&total=" . $_GET['total'];
+                            }
+                            if (isset($_GET['search'])) {
+                                $paginationUrl .= "&search=" . $_GET['search'];
                             }
                             echo "<a href='$paginationUrl' >$i</a>";
                         }

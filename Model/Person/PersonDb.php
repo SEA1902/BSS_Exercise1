@@ -39,7 +39,9 @@ class PersonDb
                 $person->getPassword(),
             ];
 
+
             if (!$stmt->execute($newPerson)) {
+                dd($newPerson, $this->connect, get_class_methods($stmt), $stmt->errorInfo());
                 throw new \PDOException("Failed");
             }
         } catch (\Exception $e) {

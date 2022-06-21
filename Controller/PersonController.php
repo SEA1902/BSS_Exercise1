@@ -97,8 +97,9 @@ class PersonController
                 session_start();
                 $_SESSION['user'] = $this->getPerson($id);
                 header('Location: Setting.php');
-            } catch(\Controller\InputException  $e){
+            } catch(InputException  $e){
                 $errs = $e->getData();
+                session_start();
                 $_SESSION['err'] = $errs;
                 header('Location: Setting.php');
             }
